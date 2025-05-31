@@ -1,0 +1,8 @@
+{
+    "description": "React Router development application",
+    "devtools": {
+        "enabled": true
+    },
+    "name": "React Router App",
+    "version": "1.0.0"
+}
