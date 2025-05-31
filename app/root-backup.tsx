@@ -9,14 +9,8 @@ import {
 } from "react-router";
 
 import type { Route } from "./+types/root";
-import {
-    MobileSlideTransition,
-    TRANSITION_SPEEDS,
-} from "./components/mobile-slide-transition";
-import {
-    TransitionProvider,
-    useTransition,
-} from "./contexts/transition-context";
+import { MobileSlideTransition, TRANSITION_SPEEDS } from "./components/mobile-slide-transition";
+import { TransitionProvider, useTransition } from "./contexts/transition-context";
 import { SpeedSelector } from "./components/speed-selector";
 import "./app.css";
 
@@ -98,15 +92,14 @@ function LayoutContent({ children }: { children: React.ReactNode }) {
             </header>
 
             <main className="flex-1 mobile-transition-container">
-                <MobileSlideTransition speed={speed}>
-                    {children}
-                </MobileSlideTransition>
+                <MobileSlideTransition speed={speed}>{children}</MobileSlideTransition>
             </main>
 
             <footer className="bg-pink-600 text-white py-6">
                 <div className="container mx-auto px-4 text-center">
                     <p>
-                        &copy; 2025 Mi Sitio Web. Todos los derechos reservados.
+                        &copy; 2025 Mi Sitio Web. Todos los derechos
+                        reservados.
                     </p>
                     <p className="text-sm mt-2 opacity-80">
                         React Router v7 con transiciones móviles configurables
@@ -141,7 +134,11 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-    return <Outlet />;
+    return (
+        <MobileSlideTransition>
+            <Outlet />
+        </MobileSlideTransition>
+    );
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
