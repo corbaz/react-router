@@ -11,7 +11,7 @@ import type { Route } from "./+types/root";
 import { MobileSlideTransition } from "./components/mobile-slide-transition";
 import { TransitionProvider } from "./contexts/transition-context";
 import { SpeedSelector } from "./components/speed-selector";
-import { AutoNavigation } from "./components/auto-navigation";
+import { Header } from "./components/header";
 import { SYSTEM_CONFIG } from "./config/config";
 import "./app.css";
 
@@ -31,27 +31,7 @@ export const links: Route.LinksFunction = () => [
 function LayoutContent({ children }: { children: React.ReactNode }) {
     return (
         <>
-            <header
-                className={`${SYSTEM_CONFIG.header.backgroundColor} ${SYSTEM_CONFIG.header.textColor} shadow-md`}
-            >
-                <nav className="container mx-auto px-4 py-4">
-                    <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between">
-                        <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-3 lg:mb-0">
-                            <div className="text-xl font-bold mb-3 md:mb-0">
-                                {SYSTEM_CONFIG.header.siteName}
-                            </div>
-                            {SYSTEM_CONFIG.header.showSpeedSelector && (
-                                <div className="md:ml-6">
-                                    <SpeedSelector />
-                                </div>
-                            )}
-                        </div>
-                        <div className="flex flex-col md:flex-row">
-                            <AutoNavigation />
-                        </div>
-                    </div>
-                </nav>
-            </header>
+            <Header />
 
             <main className="flex-1 mobile-transition-container">
                 <MobileSlideTransition>{children}</MobileSlideTransition>

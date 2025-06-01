@@ -35,6 +35,36 @@
     backface-visibility: hidden;
 }
 
+/* Estilos para el menú móvil hamburguesa */
+@media (max-width: 768px) {
+    .mobile-menu-enter {
+        max-height: 0;
+        opacity: 0;
+    }
+
+    .mobile-menu-enter-active {
+        max-height: 384px; /* max-h-96 */
+        opacity: 1;
+        transition: max-height 300ms ease-in-out, opacity 300ms ease-in-out;
+    }
+
+    .mobile-menu-exit {
+        max-height: 384px;
+        opacity: 1;
+    }
+
+    .mobile-menu-exit-active {
+        max-height: 0;
+        opacity: 0;
+        transition: max-height 300ms ease-in-out, opacity 300ms ease-in-out;
+    }
+}
+
+/* Prevenir scroll cuando el menú móvil está abierto */
+body.mobile-menu-open {
+    overflow: hidden;
+}
+
 html,
 body {
     @apply bg-white dark:bg-black;

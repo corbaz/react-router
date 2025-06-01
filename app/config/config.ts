@@ -93,9 +93,15 @@ export const SYSTEM_CONFIG = {
     },
     header: {
         siteName: "Mi Sitio Web",
-        showSpeedSelector: true,
+        showSpeedSelector: false,
         backgroundColor: "bg-black",
         textColor: "text-white",
+        mobile: {
+            showHamburger: true,
+            hamburgerColor: "text-white",
+            mobileMenuBg: "bg-black",
+            mobileMenuText: "text-white",
+        },
     },
     footer: {
         copyrightText: "© 2025 Mi Sitio Web. Todos los derechos reservados.",
