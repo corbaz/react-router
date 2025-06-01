@@ -1,154 +1,135 @@
 import { useLocation } from "react-router";
 import { useEffect, useState, useRef } from "react";
+import { useTransition } from "~/contexts/transition-context";
+import { useNavigation } from "~/hooks/use-navigation";
+import { getTransitionSpeeds, SYSTEM_CONFIG } from "~/config/config";
 
 interface MobileSlideTransitionProps {
     children: React.ReactNode;
-    speed?: "ultra-fast" | "fast" | "normal" | "slow" | "ultra-slow" | "debug";
-}
-
-const routeOrder = ["/", "/about", "/usuarios"];
-
-// Configuraciones de velocidades en milisegundos
-export const TRANSITION_SPEEDS = {
-    "ultra-fast": 150, // Súper rápido
-    fast: 300, // Rápido
-    normal: 600, // Normal (por defecto)
-    slow: 1200, // Lento
-    "ultra-slow": 2500, // Súper lento
-    debug: 5000, // Para debugging
-} as const;
-
-// Función para crear estilos dinámicos de animación
-function createDynamicAnimationStyles(duration: number): string {
-    return `
-        .dynamic-slide-in-right {
-            animation: slide-in-right ${duration}ms cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-        }
-        .dynamic-slide-in-left {
-            animation: slide-in-left ${duration}ms cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-        }
-    `;
-}
-
-// Función para inyectar estilos dinámicos
-function injectDynamicStyles(duration: number, styleId: string) {
-    // Remover estilos previos si existen
-    const existingStyle = document.getElementById(styleId);
-    if (existingStyle) {
-        existingStyle.remove();
-    }
-
-    // Crear nuevo elemento de estilo
-    const styleElement = document.createElement("style");
-    styleElement.id = styleId;
-    styleElement.textContent = createDynamicAnimationStyles(duration);
-    document.head.appendChild(styleElement);
 }
 
 export function MobileSlideTransition({
     children,
-    speed = "normal",
 }: MobileSlideTransitionProps) {
     const location = useLocation();
-    const [displayLocation, setDisplayLocation] = useState(location);
+    const { speed, routeOrder } = useTransition();
+    const { getNavigationDirection, currentDisplayName } = useNavigation();
+    const transitionSpeeds = getTransitionSpeeds();
     const [isTransitioning, setIsTransitioning] = useState(false);
     const [direction, setDirection] = useState<"forward" | "backward">(
         "forward"
     );
-    const [previousContent, setPreviousContent] =
+
+    // Estados para contenido de páginas
+    const [previousPageContent, setPreviousPageContent] =
         useState<React.ReactNode>(null);
-    const containerRef = useRef<HTMLDivElement>(null);
+    const [currentPageContent, setCurrentPageContent] =
+        useState<React.ReactNode>(children);
 
-    // Obtener la duración basada en la velocidad seleccionada
-    const duration = TRANSITION_SPEEDS[speed];
-    const styleId = `mobile-transition-styles-${speed}`;
+    const previousLocation = useRef(location);
+    const isFirstRender = useRef(true);
+    const transitionTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(
+        null
+    );
 
-    // Inyectar estilos dinámicos cuando cambie la velocidad
+    const duration = transitionSpeeds[speed];
+
+    // Inicialización
     useEffect(() => {
-        injectDynamicStyles(duration, styleId);
+        if (isFirstRender.current) {
+            setCurrentPageContent(children);
+            isFirstRender.current = false;
+        }
+    }, [children]);
 
-        return () => {
-            // Limpiar estilos al desmontar
-            const existingStyle = document.getElementById(styleId);
-            if (existingStyle) {
-                existingStyle.remove();
-            }
-        };
-    }, [duration, styleId]);
+    // Manejo de transiciones
     useEffect(() => {
-        if (location.pathname !== displayLocation.pathname) {
-            // Determinar dirección del deslizamiento
-            const currentIndex = routeOrder.indexOf(location.pathname);
-            const previousIndex = routeOrder.indexOf(displayLocation.pathname);
-            const newDirection =
-                currentIndex > previousIndex ? "forward" : "backward";
-
-            setDirection(newDirection);
-
-            // Capturar el contenido actual antes de cambiar
-            setPreviousContent(
-                <div
-                    key={displayLocation.pathname}
-                    className="w-full h-full mobile-transition-page"
-                >
-                    {children}
-                </div>
+        if (
+            location.pathname !== previousLocation.current.pathname &&
+            !isFirstRender.current
+        ) {
+            console.log(
+                "🔄 Transición:",
+                previousLocation.current.pathname,
+                "→",
+                location.pathname
             );
 
-            // Iniciar transición
+            // 1. Capturar contenido actual
+            setPreviousPageContent(currentPageContent); // 2. Determinar dirección usando el hook mejorado
+            const newDirection = getNavigationDirection(
+                previousLocation.current.pathname,
+                location.pathname
+            );
+            setDirection(newDirection);
+
+            // 3. Actualizar contenido y empezar transición
+            setCurrentPageContent(children);
             setIsTransitioning(true);
 
-            // Cambiar a la nueva ubicación inmediatamente
-            setDisplayLocation(location); // Finalizar transición después de la animación
-            const timer = setTimeout(() => {
-                setIsTransitioning(false);
-                setPreviousContent(null);
-            }, duration + 50); // Duración configurable + pequeño buffer
+            previousLocation.current = location;
 
-            return () => clearTimeout(timer);
+            // 4. Limpiar timeout anterior
+            if (transitionTimeoutRef.current) {
+                clearTimeout(transitionTimeoutRef.current);
+            }
+
+            // 5. Finalizar transición
+            transitionTimeoutRef.current = setTimeout(() => {
+                setIsTransitioning(false);
+                setPreviousPageContent(null);
+                console.log("✅ Transición completada");
+            }, duration);
         }
-    }, [location.pathname, displayLocation.pathname, duration]);
+    }, [location.pathname, duration, children, currentPageContent]);
+
+    // Cleanup
+    useEffect(() => {
+        return () => {
+            if (transitionTimeoutRef.current) {
+                clearTimeout(transitionTimeoutRef.current);
+            }
+        };
+    }, []);
+
     return (
         <div
-            ref={containerRef}
-            className="relative w-full overflow-hidden mobile-transition-container"
+            className="relative w-full overflow-hidden"
             style={{ minHeight: "500px" }}
         >
             {" "}
-            {/* Página anterior - se desliza hacia afuera (SIEMPRE VISIBLE durante la transición) */}
-            {isTransitioning && previousContent && (
+            {/* Página anterior - SE DESVANECE (opacity) 
+            {isTransitioning && previousPageContent && (
                 <div
-                    className="absolute top-0 w-full h-full z-10 mobile-transition-page"
+                    className="absolute inset-0 z-10"
                     style={{
-                        left: 0,
-                        transform:
-                            direction === "forward"
-                                ? "translateX(-100%)"
-                                : "translateX(100%)",
-                        transition: `transform ${duration}ms cubic-bezier(0.25, 0.46, 0.45, 0.94)`,
+                        transition: `opacity ${duration * 5.5}ms ease-in-out`,
+                        opacity: 60, // Se desvanece
                     }}
                 >
-                    {previousContent}
+                    {previousPageContent}
                 </div>
-            )}{" "}
-            {/* Página nueva - se desliza hacia adentro (SIEMPRE VISIBLE durante la transición) */}
+            )}*/}
+            {/* Página nueva - ENTRA DESLIZANDO desde el lado correcto */}
             <div
-                className={`relative w-full h-full z-20 mobile-transition-page ${
-                    isTransitioning
-                        ? direction === "forward"
-                            ? "dynamic-slide-in-right"
-                            : "dynamic-slide-in-left"
-                        : ""
-                }`}
+                className="relative w-full h-full z-20"
                 style={{
+                    transition: isTransitioning
+                        ? `transform ${duration}ms cubic-bezier(0.25, 0.46, 0.45, 0.94)`
+                        : "none",
                     transform: isTransitioning
-                        ? "translateX(0)"
-                        : "translateX(0)",
-                    transition: isTransitioning ? "none" : "none",
+                        ? "translateX(0)" // Termina en el centro
+                        : "translateX(0)", // Posición normal
+                    // Empieza desde el lado correcto cuando hay transición
+                    ...(isTransitioning && {
+                        animation:
+                            direction === "forward"
+                                ? `slideInFromRight ${duration}ms cubic-bezier(0.25, 0.46, 0.45, 0.94)`
+                                : `slideInFromLeft ${duration}ms cubic-bezier(0.25, 0.46, 0.45, 0.94)`,
+                    }),
                 }}
-                key={displayLocation.pathname}
             >
-                {children}
+                {currentPageContent}
             </div>
         </div>
     );

@@ -5,19 +5,14 @@ import {
     Outlet,
     Scripts,
     ScrollRestoration,
-    NavLink,
 } from "react-router";
 
 import type { Route } from "./+types/root";
-import {
-    MobileSlideTransition,
-    TRANSITION_SPEEDS,
-} from "./components/mobile-slide-transition";
-import {
-    TransitionProvider,
-    useTransition,
-} from "./contexts/transition-context";
+import { MobileSlideTransition } from "./components/mobile-slide-transition";
+import { TransitionProvider } from "./contexts/transition-context";
 import { SpeedSelector } from "./components/speed-selector";
+import { AutoNavigation } from "./components/auto-navigation";
+import { SYSTEM_CONFIG } from "./config/config";
 import "./app.css";
 
 export const links: Route.LinksFunction = () => [
@@ -34,82 +29,41 @@ export const links: Route.LinksFunction = () => [
 ];
 
 function LayoutContent({ children }: { children: React.ReactNode }) {
-    const { speed } = useTransition();
-
     return (
         <>
-            <header className="bg-pink-600 text-white shadow-md">
+            <header
+                className={`${SYSTEM_CONFIG.header.backgroundColor} ${SYSTEM_CONFIG.header.textColor} shadow-md`}
+            >
                 <nav className="container mx-auto px-4 py-4">
                     <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between">
                         <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-3 lg:mb-0">
                             <div className="text-xl font-bold mb-3 md:mb-0">
-                                Mi Sitio Web
+                                {SYSTEM_CONFIG.header.siteName}
                             </div>
-                            <div className="md:ml-6">
-                                <SpeedSelector />
-                            </div>
+                            {SYSTEM_CONFIG.header.showSpeedSelector && (
+                                <div className="md:ml-6">
+                                    <SpeedSelector />
+                                </div>
+                            )}
                         </div>
-                        <ul className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-6">
-                            <li>
-                                <NavLink
-                                    to="/"
-                                    className={({ isActive }) =>
-                                        `hover:text-blue-200 transition-colors ${
-                                            isActive
-                                                ? "border-b-2 border-white"
-                                                : ""
-                                        }`
-                                    }
-                                >
-                                    Home
-                                </NavLink>
-                            </li>
-                            <li>
-                                <NavLink
-                                    to="/about"
-                                    className={({ isActive }) =>
-                                        `hover:text-blue-200 transition-colors ${
-                                            isActive
-                                                ? "border-b-2 border-white"
-                                                : ""
-                                        }`
-                                    }
-                                >
-                                    About
-                                </NavLink>
-                            </li>
-                            <li>
-                                <NavLink
-                                    to="/usuarios"
-                                    className={({ isActive }) =>
-                                        `hover:text-blue-200 transition-colors ${
-                                            isActive
-                                                ? "border-b-2 border-white"
-                                                : ""
-                                        }`
-                                    }
-                                >
-                                    Usuarios
-                                </NavLink>
-                            </li>
-                        </ul>
+                        <div className="flex flex-col md:flex-row">
+                            <AutoNavigation />
+                        </div>
                     </div>
                 </nav>
             </header>
 
             <main className="flex-1 mobile-transition-container">
-                <MobileSlideTransition speed={speed}>
-                    {children}
-                </MobileSlideTransition>
+                <MobileSlideTransition>{children}</MobileSlideTransition>
             </main>
 
-            <footer className="bg-pink-600 text-white py-6">
+            <footer
+                className={`${SYSTEM_CONFIG.footer.backgroundColor} ${SYSTEM_CONFIG.footer.textColor} py-6`}
+            >
                 <div className="container mx-auto px-4 text-center">
-                    <p>
-                        &copy; 2025 Mi Sitio Web. Todos los derechos reservados.
-                    </p>
+                    <p>{SYSTEM_CONFIG.footer.copyrightText}</p>{" "}
                     <p className="text-sm mt-2 opacity-80">
-                        React Router v7 con transiciones móviles configurables
+                        {SYSTEM_CONFIG.footer.secondaryText}
                     </p>
                 </div>
             </footer>

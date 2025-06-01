@@ -1,9 +1,14 @@
 import type { Route } from "./+types/usuarios";
+import { getRouteMeta } from "~/config/config";
 
 export function meta({}: Route.MetaArgs) {
+    const meta = getRouteMeta("/usuarios");
     return [
-        { title: "Usuarios - Mi Sitio Web" },
-        { name: "description", content: "Gestión de usuarios" },
+        { title: meta?.title || "Usuarios" },
+        {
+            name: "description",
+            content: meta?.description || "Gestión de usuarios",
+        },
     ];
 }
 

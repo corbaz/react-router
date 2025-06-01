@@ -1,9 +1,14 @@
 import type { Route } from "./+types/about";
+import { getRouteMeta } from "~/config/config";
 
 export function meta({}: Route.MetaArgs) {
+    const meta = getRouteMeta("/about");
     return [
-        { title: "About - Mi Sitio Web" },
-        { name: "description", content: "Conoce más sobre nosotros" },
+        { title: meta?.title || "Nosotros" },
+        {
+            name: "description",
+            content: meta?.description || "Conoce más sobre nosotros",
+        },
     ];
 }
 
@@ -57,7 +62,7 @@ export default function About() {
                                 Ser líderes en el desarrollo de soluciones web
                                 que impulsen la transformación digital de las
                                 empresas.
-                            </p>
+                            </p>{" "}
                         </div>
                     </div>
                 </div>

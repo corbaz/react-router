@@ -6,30 +6,10 @@
         "Noto Color Emoji";
 }
 
-/* Animaciones móviles profesionales para transiciones de página */
+/* Animaciones para entrada de páginas */
 
-/* Deslizamiento hacia la izquierda (página sale) */
-@keyframes slide-out-left {
-    from {
-        transform: translateX(0);
-    }
-    to {
-        transform: translateX(-100%);
-    }
-}
-
-/* Deslizamiento hacia la derecha (página sale) */
-@keyframes slide-out-right {
-    from {
-        transform: translateX(0);
-    }
-    to {
-        transform: translateX(100%);
-    }
-}
-
-/* Deslizamiento desde la derecha (página entra) */
-@keyframes slide-in-right {
+/* Entrada desde la derecha (forward) */
+@keyframes slideInFromRight {
     from {
         transform: translateX(100%);
     }
@@ -38,53 +18,26 @@
     }
 }
 
-/* Deslizamiento desde la izquierda (página entra) */
-@keyframes slide-in-left {
+/* Entrada desde la izquierda (backward) */
+@keyframes slideInFromLeft {
     from {
         transform: translateX(-100%);
     }
     to {
         transform: translateX(0);
     }
-}
-
-/* Clases de animación */
-.animate-slide-out-left {
-    animation: slide-out-left 600ms cubic-bezier(0.25, 0.46, 0.45, 0.94)
-        forwards;
-}
-
-.animate-slide-out-right {
-    animation: slide-out-right 600ms cubic-bezier(0.25, 0.46, 0.45, 0.94)
-        forwards;
-}
-
-.animate-slide-in-right {
-    animation: slide-in-right 600ms cubic-bezier(0.25, 0.46, 0.45, 0.94)
-        forwards;
-}
-
-.animate-slide-in-left {
-    animation: slide-in-left 600ms cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
 }
 
 /* Optimizaciones de rendimiento */
 .mobile-transition-container {
     contain: layout style paint;
-    will-change: transform;
+    will-change: transform, opacity;
     backface-visibility: hidden;
-    perspective: 1000px;
-}
-
-.mobile-transition-page {
-    transform-style: preserve-3d;
-    backface-visibility: hidden;
-    will-change: transform;
 }
 
 html,
 body {
-    @apply bg-white dark:bg-gray-950;
+    @apply bg-white dark:bg-black;
 
     @media (prefers-color-scheme: dark) {
         color-scheme: dark;

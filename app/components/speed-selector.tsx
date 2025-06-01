@@ -1,20 +1,45 @@
 import { useTransition } from "../contexts/transition-context";
-import { TRANSITION_SPEEDS } from "./mobile-slide-transition";
+import { getTransitionSpeeds, SYSTEM_CONFIG } from "~/config/config";
 
 export function SpeedSelector() {
     const { speed, setSpeed } = useTransition();
+    const transitionSpeeds = getTransitionSpeeds();
 
     const speedOptions: Array<{
-        value: keyof typeof TRANSITION_SPEEDS;
+        value: keyof typeof transitionSpeeds;
         label: string;
         description: string;
     }> = [
-        { value: "ultra-fast", label: "Súper Rápido", description: "150ms" },
-        { value: "fast", label: "Rápido", description: "300ms" },
-        { value: "normal", label: "Normal", description: "600ms" },
-        { value: "slow", label: "Lento", description: "1200ms" },
-        { value: "ultra-slow", label: "Súper Lento", description: "2500ms" },
-        { value: "debug", label: "Debug", description: "5000ms" },
+        {
+            value: "ultra-fast",
+            label: "Súper Rápido",
+            description: `${transitionSpeeds["ultra-fast"]}ms`,
+        },
+        {
+            value: "fast",
+            label: "Rápido",
+            description: `${transitionSpeeds.fast}ms`,
+        },
+        {
+            value: "normal",
+            label: "Normal",
+            description: `${transitionSpeeds.normal}ms`,
+        },
+        {
+            value: "slow",
+            label: "Lento",
+            description: `${transitionSpeeds.slow}ms`,
+        },
+        {
+            value: "ultra-slow",
+            label: "Súper Lento",
+            description: `${transitionSpeeds["ultra-slow"]}ms`,
+        },
+        {
+            value: "debug",
+            label: "Debug",
+            description: `${transitionSpeeds.debug}ms`,
+        },
     ];
 
     return (
@@ -26,10 +51,10 @@ export function SpeedSelector() {
                 id="speed-selector"
                 value={speed}
                 onChange={(e) =>
-                    setSpeed(e.target.value as keyof typeof TRANSITION_SPEEDS)
+                    setSpeed(e.target.value as keyof typeof transitionSpeeds)
                 }
                 className="text-sm bg-pink-700 text-white border border-pink-500 rounded px-2 py-1 hover:bg-pink-800 focus:outline-none focus:ring-2 focus:ring-pink-300"
-                title={`Duración actual: ${TRANSITION_SPEEDS[speed]}ms`}
+                title={`Duración actual: ${transitionSpeeds[speed]}ms`}
             >
                 {speedOptions.map((option) => (
                     <option key={option.value} value={option.value}>
