@@ -1,5 +1,6 @@
 import type { Route } from "./+types/contacto";
 import { getRouteMeta } from "~/config/config";
+import { PageHeader } from "~/components/page-header";
 
 export function meta({}: Route.MetaArgs) {
     const meta = getRouteMeta("/contacto");
@@ -13,14 +14,7 @@ export default function Contacto() {
     return (
         <div className="container mx-auto px-4 py-8">
             <div className="max-w-4xl mx-auto">
-                <div className="text-center mb-8">
-                    <h1 className="text-4xl font-bold text-gray-800 mb-4">
-                        Contáctanos
-                    </h1>
-                    <p className="text-xl text-gray-600">
-                        ¿Tienes preguntas? Nos encantaría ayudarte
-                    </p>
-                </div>
+                <PageHeader routePath="/contacto" />
 
                 <div className="grid md:grid-cols-2 gap-8">
                     <div className="bg-white p-8 rounded-lg shadow-md">

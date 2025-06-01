@@ -16,14 +16,14 @@ export interface RouteItem {
     component: string;
     /** Orden en el menú de navegación */
     order: number;
-    /** Título de la página para meta */
+    /** Título de la página para meta y H1 */
     title: string;
-    /** Descripción para meta */
+    /** Descripción para meta y párrafo descriptivo */
     description: string;
     /** Si se debe incluir en la navegación automática */
-    showInNav?: boolean;
+    showInNav: boolean;
     /** Si es la ruta index (página principal) */
-    isIndex?: boolean;
+    isIndex: boolean;
 }
 
 /**
@@ -35,8 +35,8 @@ export const ROUTES_CONFIG: RouteItem[] = [
         displayName: "Inicio",
         component: "routes/home.tsx",
         order: 1,
-        title: "Inicio - Mi Sitio Web",
-        description: "Bienvenido a nuestro sitio web",
+        title: "Bienvenido a Mi Sitio Web",
+        description: "Soluciones web modernas y eficientes para tu negocio",
         showInNav: true,
         isIndex: true,
     },
@@ -45,27 +45,40 @@ export const ROUTES_CONFIG: RouteItem[] = [
         displayName: "Nosotros",
         component: "routes/about.tsx",
         order: 2,
-        title: "Nosotros - Mi Sitio Web",
-        description: "Conoce más sobre nosotros",
+        title: "Sobre Nosotros",
+        description: "Conoce más sobre nuestra misión y equipo",
         showInNav: true,
+        isIndex: false,
     },
     {
         path: "/usuarios",
         displayName: "Usuarios",
         component: "routes/usuarios.tsx",
         order: 3,
-        title: "Usuarios - Mi Sitio Web",
-        description: "Gestión de usuarios",
+        title: "Gestión de Usuarios",
+        description: "Administra y consulta la información de usuarios",
         showInNav: true,
+        isIndex: false,
     },
     {
         path: "/contacto",
         displayName: "Contacto",
         component: "routes/contacto.tsx",
         order: 4,
-        title: "Contacto - Mi Sitio Web",
-        description: "Contacto",
+        title: "Contáctanos",
+        description: "Ponte en contacto con nosotros para cualquier consulta",
         showInNav: true,
+        isIndex: false,
+    },
+    {
+        path: "/servicios",
+        displayName: "Servicios",
+        component: "routes/servicios.tsx",
+        order: 5,
+        title: "Nuestros Servicios",
+        description: "Soluciones profesionales adaptadas a tus necesidades",
+        showInNav: true,
+        isIndex: false,
     },
 ];
 
@@ -139,6 +152,15 @@ export function getRouteMeta(
     const route = ROUTES_CONFIG.find((route) => route.path === path);
     return route
         ? { title: route.title, description: route.description }
+        : null;
+}
+
+export function getRoutePageData(
+    path: string
+): { h1Title: string; h1Description: string } | null {
+    const route = ROUTES_CONFIG.find((route) => route.path === path);
+    return route
+        ? { h1Title: route.title, h1Description: route.description }
         : null;
 }
 

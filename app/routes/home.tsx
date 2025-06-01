@@ -1,5 +1,6 @@
 import type { Route } from "./+types/home";
 import { getRouteMeta } from "~/config/config";
+import { PageHeader } from "~/components/page-header";
 
 export function meta({}: Route.MetaArgs) {
     const meta = getRouteMeta("/");
@@ -16,15 +17,7 @@ export default function Home() {
     return (
         <div className="container mx-auto px-4 py-8">
             <div className="max-w-4xl mx-auto">
-                <div className="text-center mb-12">
-                    <h1 className="text-5xl font-bold text-gray-800 mb-6">
-                        Bienvenido
-                    </h1>
-                    <p className="text-xl text-gray-600 leading-relaxed">
-                        Descubre nuestros servicios y soluciones diseñadas para
-                        ofrecerte la mejor experiencia
-                    </p>
-                </div>
+                <PageHeader routePath="/" className="mb-12" />
 
                 <div className="grid md:grid-cols-3 gap-8 mb-12">
                     <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">

@@ -1,5 +1,6 @@
 import type { Route } from "./+types/usuarios";
 import { getRouteMeta } from "~/config/config";
+import { PageHeader } from "~/components/page-header";
 
 export function meta({}: Route.MetaArgs) {
     const meta = getRouteMeta("/usuarios");
@@ -45,14 +46,7 @@ export default function Usuarios() {
     return (
         <div className="container mx-auto px-4 py-8">
             <div className="max-w-6xl mx-auto">
-                <div className="text-center mb-8">
-                    <h1 className="text-4xl font-bold text-gray-800 mb-4">
-                        Gestión de Usuarios
-                    </h1>
-                    <p className="text-xl text-gray-600">
-                        Administra y visualiza todos los usuarios del sistema
-                    </p>
-                </div>
+                <PageHeader routePath="/usuarios" />
 
                 <div className="bg-white rounded-lg shadow-md overflow-hidden">
                     <div className="px-6 py-4 bg-gray-50 border-b">

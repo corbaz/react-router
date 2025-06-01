@@ -1,5 +1,6 @@
 import type { Route } from "./+types/about";
 import { getRouteMeta } from "~/config/config";
+import { PageHeader } from "~/components/page-header";
 
 export function meta({}: Route.MetaArgs) {
     const meta = getRouteMeta("/about");
@@ -16,14 +17,7 @@ export default function About() {
     return (
         <div className="container mx-auto px-4 py-8">
             <div className="max-w-4xl mx-auto">
-                <div className="text-center mb-8">
-                    <h1 className="text-4xl font-bold text-gray-800 mb-4">
-                        Sobre Nosotros
-                    </h1>
-                    <p className="text-xl text-gray-600">
-                        Conoce más sobre nuestra misión y equipo
-                    </p>
-                </div>
+                <PageHeader routePath="/about" />
 
                 <div className="grid md:grid-cols-1 gap-8">
                     <div className="bg-white p-8 rounded-lg shadow-md">
