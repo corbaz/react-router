@@ -1,0 +1,52 @@
+{
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": "explicit",
+        "source.organizeImports": "explicit"
+    },
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "emmet.includeLanguages": {
+        "typescriptreact": "html"
+    },
+    "eslint.validate": [
+        "javascript",
+        "javascriptreact",
+        "typescript",
+        "typescriptreact"
+    ],
+    "files.exclude": {
+        "**/.react-router": true,
+        "**/build": true,
+        "**/bun.lockb": true,
+        "**/dist": true,
+        "**/node_modules": true
+    },
+    "search.exclude": {
+        "**/.react-router": true,
+        "**/build": true,
+        "**/bun.lockb": true,
+        "**/dist": true,
+        "**/node_modules": true
+    },
+    "tailwindCSS.experimental.classRegex": [
+        [
+            "clsx\\(([^)]*)\\)",
+            "(?:'|\"|`)([^']*)(?:'|\"|`)"
+        ],
+        [
+            "classnames\\(([^)]*)\\)",
+            "(?:'|\"|`)([^']*)(?:'|\"|`)"
+        ],
+        [
+            "cn\\(([^)]*)\\)",
+            "(?:'|\"|`)([^']*)(?:'|\"|`)"
+        ]
+    ],
+    "tailwindCSS.includeLanguages": {
+        "typescript": "javascript",
+        "typescriptreact": "javascript"
+    },
+    "typescript.preferences.importModuleSpecifier": "relative",
+    "typescript.suggest.autoImports": true,
+    "zencoder.enableRepoIndexing": true
+}

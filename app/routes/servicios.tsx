@@ -1,14 +1,14 @@
-import type { Route } from "./+types/servicios";
-import { getRouteMeta } from "~/config/config";
 import { PageHeader } from "~/components/page-header";
+import { getRouteMeta } from "~/config/config";
+import type { Route } from "./+types/servicios";
 
 export function meta({}: Route.MetaArgs) {
     const meta = getRouteMeta("/servicios");
     return [
-        { title: meta?.title || "Servicios" },
+        { title: meta?.title ?? "Servicios" },
         {
             name: "description",
-            content: meta?.description || "Nuestros servicios profesionales",
+            content: meta?.description ?? "Nuestros servicios profesionales",
         },
     ];
 }
@@ -71,15 +71,11 @@ export default function Servicios() {
                             key={servicio.id}
                             className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
                         >
-                            <div className="text-4xl mb-4 text-center">
-                                {servicio.icono}
-                            </div>
+                            <div className="text-4xl mb-4 text-center">{servicio.icono}</div>
                             <h3 className="text-xl font-semibold mb-3 text-gray-800 text-center">
                                 {servicio.titulo}
                             </h3>
-                            <p className="text-gray-600 mb-4 text-center">
-                                {servicio.descripcion}
-                            </p>
+                            <p className="text-gray-600 mb-4 text-center">{servicio.descripcion}</p>
                             <div className="text-center">
                                 <span className="inline-block bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">
                                     {servicio.precio}
@@ -100,8 +96,8 @@ export default function Servicios() {
                             ¿Necesitas un servicio personalizado?
                         </h2>
                         <p className="text-gray-600 mb-6">
-                            Contáctanos para discutir tus necesidades
-                            específicas y crear una solución a medida.
+                            Contáctanos para discutir tus necesidades específicas y crear una
+                            solución a medida.
                         </p>
                         <button className="bg-indigo-600 text-white px-8 py-3 rounded-md hover:bg-indigo-700 transition-colors duration-200 text-lg font-medium">
                             Contactar Ahora
@@ -120,17 +116,13 @@ export default function Servicios() {
                                     1
                                 </div>
                                 <h3 className="font-semibold mb-2">Consulta</h3>
-                                <p className="text-sm text-gray-600">
-                                    Analizamos tus necesidades
-                                </p>
+                                <p className="text-sm text-gray-600">Analizamos tus necesidades</p>
                             </div>
                             <div className="text-center">
                                 <div className="bg-green-100 text-green-600 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3 text-xl font-bold">
                                     2
                                 </div>
-                                <h3 className="font-semibold mb-2">
-                                    Propuesta
-                                </h3>
+                                <h3 className="font-semibold mb-2">Propuesta</h3>
                                 <p className="text-sm text-gray-600">
                                     Creamos una solución personalizada
                                 </p>
@@ -139,21 +131,15 @@ export default function Servicios() {
                                 <div className="bg-orange-100 text-orange-600 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3 text-xl font-bold">
                                     3
                                 </div>
-                                <h3 className="font-semibold mb-2">
-                                    Desarrollo
-                                </h3>
-                                <p className="text-sm text-gray-600">
-                                    Implementamos la solución
-                                </p>
+                                <h3 className="font-semibold mb-2">Desarrollo</h3>
+                                <p className="text-sm text-gray-600">Implementamos la solución</p>
                             </div>
                             <div className="text-center">
                                 <div className="bg-purple-100 text-purple-600 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3 text-xl font-bold">
                                     4
                                 </div>
                                 <h3 className="font-semibold mb-2">Entrega</h3>
-                                <p className="text-sm text-gray-600">
-                                    Lanzamos y damos soporte
-                                </p>
+                                <p className="text-sm text-gray-600">Lanzamos y damos soporte</p>
                             </div>
                         </div>
                     </div>

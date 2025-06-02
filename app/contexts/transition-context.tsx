@@ -1,28 +1,10 @@
-import { createContext, useContext, useState } from "react";
-import type { ReactNode } from "react";
-import {
-    getRouteOrder,
-    getDefaultTransitionSpeed,
-    getTransitionSpeeds,
-    SYSTEM_CONFIG,
-} from "~/config/config";
-
-type TransitionSpeed = keyof typeof SYSTEM_CONFIG.transitions.speeds;
-
-interface TransitionContextType {
-    speed: TransitionSpeed;
-    setSpeed: (speed: TransitionSpeed) => void;
-    /** Orden automático de rutas basado en configuración */
-    routeOrder: string[];
-}
-
-const TransitionContext = createContext<TransitionContextType | undefined>(
-    undefined
-);
+import { useState, type ReactNode } from "react";
+import { getRouteOrder, SYSTEM_CONFIG } from "~/config/config";
+import { TransitionContext, type TransitionSpeed } from "~/contexts/transition-context-types";
 
 export function TransitionProvider({ children }: { children: ReactNode }) {
     const [speed, setSpeed] = useState<TransitionSpeed>(
-        SYSTEM_CONFIG.transitions.defaultSpeed as TransitionSpeed
+        SYSTEM_CONFIG.transitions.defaultSpeed as TransitionSpeed,
     );
     const routeOrder = getRouteOrder();
 
@@ -33,12 +15,4 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
     );
 }
 
-export function useTransition() {
-    const context = useContext(TransitionContext);
-    if (context === undefined) {
-        throw new Error(
-            "useTransition must be used within a TransitionProvider"
-        );
-    }
-    return context;
-}
+// Hook movido a app/hooks/use-transition.ts para resolver problemas de Fast Refresh

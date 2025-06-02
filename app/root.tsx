@@ -8,25 +8,11 @@ import {
 } from "react-router";
 
 import type { Route } from "./+types/root";
-import { MobileSlideTransition } from "./components/mobile-slide-transition";
-import { TransitionProvider } from "./contexts/transition-context";
-import { SpeedSelector } from "./components/speed-selector";
-import { Header } from "./components/header";
-import { SYSTEM_CONFIG } from "./config/config";
 import "./app.css";
-
-export const links: Route.LinksFunction = () => [
-    { rel: "preconnect", href: "https://fonts.googleapis.com" },
-    {
-        rel: "preconnect",
-        href: "https://fonts.gstatic.com",
-        crossOrigin: "anonymous",
-    },
-    {
-        rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap",
-    },
-];
+import { Header } from "./components/header";
+import { MobileSlideTransition } from "./components/mobile-slide-transition";
+import { SYSTEM_CONFIG } from "./config/config";
+import { TransitionProvider } from "./contexts/transition-context";
 
 function LayoutContent({ children }: { children: React.ReactNode }) {
     return (
@@ -42,9 +28,7 @@ function LayoutContent({ children }: { children: React.ReactNode }) {
             >
                 <div className="container mx-auto px-4 text-center">
                     <p>{SYSTEM_CONFIG.footer.copyrightText}</p>{" "}
-                    <p className="text-sm mt-2 opacity-80">
-                        {SYSTEM_CONFIG.footer.secondaryText}
-                    </p>
+                    <p className="text-sm mt-2 opacity-80">{SYSTEM_CONFIG.footer.secondaryText}</p>
                 </div>
             </footer>
         </>
@@ -56,10 +40,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <html lang="es">
             <head>
                 <meta charSet="utf-8" />
-                <meta
-                    name="viewport"
-                    content="width=device-width, initial-scale=1"
-                />
+                <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <Meta />
                 <Links />
             </head>

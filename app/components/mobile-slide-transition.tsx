@@ -1,36 +1,28 @@
+import { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router";
-import { useEffect, useState, useRef } from "react";
-import { useTransition } from "~/contexts/transition-context";
+import { getTransitionSpeeds } from "~/config/config";
 import { useNavigation } from "~/hooks/use-navigation";
-import { getTransitionSpeeds, SYSTEM_CONFIG } from "~/config/config";
+import { useTransition } from "~/hooks/use-transition";
 
 interface MobileSlideTransitionProps {
     children: React.ReactNode;
 }
 
-export function MobileSlideTransition({
-    children,
-}: MobileSlideTransitionProps) {
+export function MobileSlideTransition({ children }: MobileSlideTransitionProps) {
     const location = useLocation();
-    const { speed, routeOrder } = useTransition();
-    const { getNavigationDirection, currentDisplayName } = useNavigation();
+    const { speed } = useTransition();
+    const { getNavigationDirection } = useNavigation();
     const transitionSpeeds = getTransitionSpeeds();
     const [isTransitioning, setIsTransitioning] = useState(false);
-    const [direction, setDirection] = useState<"forward" | "backward">(
-        "forward"
-    );
+    const [direction, setDirection] = useState<"forward" | "backward">("forward");
 
     // Estados para contenido de páginas
-    const [previousPageContent, setPreviousPageContent] =
-        useState<React.ReactNode>(null);
-    const [currentPageContent, setCurrentPageContent] =
-        useState<React.ReactNode>(children);
+    const [_previousPageContent, setPreviousPageContent] = useState<React.ReactNode>(null);
+    const [currentPageContent, setCurrentPageContent] = useState<React.ReactNode>(children);
 
     const previousLocation = useRef(location);
     const isFirstRender = useRef(true);
-    const transitionTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(
-        null
-    );
+    const transitionTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
     const duration = transitionSpeeds[speed];
 
@@ -44,22 +36,12 @@ export function MobileSlideTransition({
 
     // Manejo de transiciones
     useEffect(() => {
-        if (
-            location.pathname !== previousLocation.current.pathname &&
-            !isFirstRender.current
-        ) {
-            console.log(
-                "🔄 Transición:",
-                previousLocation.current.pathname,
-                "→",
-                location.pathname
-            );
-
+        if (location.pathname !== previousLocation.current.pathname && !isFirstRender.current) {
             // 1. Capturar contenido actual
             setPreviousPageContent(currentPageContent); // 2. Determinar dirección usando el hook mejorado
             const newDirection = getNavigationDirection(
                 previousLocation.current.pathname,
-                location.pathname
+                location.pathname,
             );
             setDirection(newDirection);
 
@@ -78,10 +60,16 @@ export function MobileSlideTransition({
             transitionTimeoutRef.current = setTimeout(() => {
                 setIsTransitioning(false);
                 setPreviousPageContent(null);
-                console.log("✅ Transición completada");
             }, duration);
         }
-    }, [location.pathname, duration, children, currentPageContent]);
+    }, [
+        location.pathname,
+        duration,
+        children,
+        currentPageContent,
+        getNavigationDirection,
+        location,
+    ]);
 
     // Cleanup
     useEffect(() => {
@@ -93,10 +81,7 @@ export function MobileSlideTransition({
     }, []);
 
     return (
-        <div
-            className="relative w-full overflow-hidden"
-            style={{ minHeight: "500px" }}
-        >
+        <div className="relative w-full overflow-hidden" style={{ minHeight: "500px" }}>
             {" "}
             {/* Página anterior - SE DESVANECE (opacity) 
             {isTransitioning && previousPageContent && (

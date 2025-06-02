@@ -24,10 +24,7 @@ export function Header() {
     // Cerrar menú al hacer clic fuera
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
-            if (
-                headerRef.current &&
-                !headerRef.current.contains(event.target as Node)
-            ) {
+            if (headerRef.current && !headerRef.current.contains(event.target as Node)) {
                 closeMobileMenu();
             }
         };
@@ -79,9 +76,7 @@ export function Header() {
                                 key={route.path}
                                 to={route.path}
                                 className={`hover:text-gray-300 transition-colors px-3 py-2 rounded-md text-sm font-medium ${
-                                    location.pathname === route.path
-                                        ? "bg-gray-700 text-white"
-                                        : ""
+                                    location.pathname === route.path ? "bg-gray-700 text-white" : ""
                                 }`}
                             >
                                 {route.displayName}

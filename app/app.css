@@ -1,9 +1,9 @@
 @import "tailwindcss";
 
 @theme {
-    --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif,
-        "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
-        "Noto Color Emoji";
+    --font-sans:
+        "Inter", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+        "Segoe UI Symbol", "Noto Color Emoji";
 }
 
 /* Animaciones para entrada de páginas */
@@ -45,7 +45,9 @@
     .mobile-menu-enter-active {
         max-height: 384px; /* max-h-96 */
         opacity: 1;
-        transition: max-height 300ms ease-in-out, opacity 300ms ease-in-out;
+        transition:
+            max-height 300ms ease-in-out,
+            opacity 300ms ease-in-out;
     }
 
     .mobile-menu-exit {
@@ -56,7 +58,9 @@
     .mobile-menu-exit-active {
         max-height: 0;
         opacity: 0;
-        transition: max-height 300ms ease-in-out, opacity 300ms ease-in-out;
+        transition:
+            max-height 300ms ease-in-out,
+            opacity 300ms ease-in-out;
     }
 }
 

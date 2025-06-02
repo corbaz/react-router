@@ -19,15 +19,13 @@ export function PageHeader({
 }: PageHeaderProps) {
     const pageData = getRoutePageData(routePath);
 
-    const title = customTitle || pageData?.h1Title || "Página";
-    const description = customDescription || pageData?.h1Description || "";
+    const title = customTitle ?? pageData?.h1Title ?? "Página";
+    const description = customDescription ?? pageData?.h1Description ?? "";
 
     return (
         <div className={`text-center mb-8 ${className}`}>
             <h1 className="text-4xl font-bold text-gray-800 mb-4">{title}</h1>
-            {description && (
-                <p className="text-xl text-gray-600">{description}</p>
-            )}
+            {description && <p className="text-xl text-gray-600">{description}</p>}
         </div>
     );
 }

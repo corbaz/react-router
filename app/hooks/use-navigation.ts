@@ -1,12 +1,10 @@
 import { useLocation } from "react-router";
 import {
-    getNavigationRoutes,
-    getRouteOrder,
     getDisplayName,
-    isValidRoute,
+    getNavigationRoutes,
     getRouteConfig,
-    type RouteItem,
-    SYSTEM_CONFIG,
+    getRouteOrder,
+    isValidRoute,
 } from "~/config/config";
 
 /**
@@ -45,20 +43,13 @@ export function useNavigation() {
      * Obtiene la ruta anterior y siguiente basado en el orden
      */
     const currentIndex = routeOrder.indexOf(currentPath);
-    const previousRoute =
-        currentIndex > 0 ? routeOrder[currentIndex - 1] : null;
-    const nextRoute =
-        currentIndex < routeOrder.length - 1
-            ? routeOrder[currentIndex + 1]
-            : null;
+    const previousRoute = currentIndex > 0 ? routeOrder[currentIndex - 1] : null;
+    const nextRoute = currentIndex < routeOrder.length - 1 ? routeOrder[currentIndex + 1] : null;
 
     /**
      * Calcula la dirección de navegación entre dos rutas
      */
-    const getNavigationDirection = (
-        fromPath: string,
-        toPath: string
-    ): "forward" | "backward" => {
+    const getNavigationDirection = (fromPath: string, toPath: string): "forward" | "backward" => {
         const fromIndex = routeOrder.indexOf(fromPath);
         const toIndex = routeOrder.indexOf(toPath);
         return toIndex > fromIndex ? "forward" : "backward";
@@ -80,6 +71,7 @@ export function useNavigation() {
                   path: previousRoute,
                   displayName: getDisplayName(previousRoute),
                   config: getRouteConfig(previousRoute),
+                  index: routeOrder.indexOf(previousRoute),
               }
             : null,
         next: nextRoute

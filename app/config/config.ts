@@ -135,7 +135,7 @@ export const SYSTEM_CONFIG = {
 
 export function getNavigationRoutes(): RouteItem[] {
     return ROUTES_CONFIG.filter((route) => route.showInNav !== false).sort(
-        (a, b) => a.order - b.order
+        (a, b) => a.order - b.order,
     );
 }
 
@@ -149,25 +149,17 @@ export function getRouteOrder(): string[] {
 
 export function getDisplayName(path: string): string {
     const route = ROUTES_CONFIG.find((route) => route.path === path);
-    return route?.displayName || path;
+    return route?.displayName ?? path;
 }
 
-export function getRouteMeta(
-    path: string
-): { title: string; description: string } | null {
+export function getRouteMeta(path: string): { title: string; description: string } | null {
     const route = ROUTES_CONFIG.find((route) => route.path === path);
-    return route
-        ? { title: route.title, description: route.description }
-        : null;
+    return route ? { title: route.title, description: route.description } : null;
 }
 
-export function getRoutePageData(
-    path: string
-): { h1Title: string; h1Description: string } | null {
+export function getRoutePageData(path: string): { h1Title: string; h1Description: string } | null {
     const route = ROUTES_CONFIG.find((route) => route.path === path);
-    return route
-        ? { h1Title: route.title, h1Description: route.description }
-        : null;
+    return route ? { h1Title: route.title, h1Description: route.description } : null;
 }
 
 export function isValidRoute(path: string): boolean {
@@ -187,7 +179,5 @@ export function getTransitionSpeeds() {
 }
 
 export function getDefaultTransitionSpeed() {
-    return SYSTEM_CONFIG.transitions.speeds[
-        SYSTEM_CONFIG.transitions.defaultSpeed
-    ];
+    return SYSTEM_CONFIG.transitions.speeds[SYSTEM_CONFIG.transitions.defaultSpeed];
 }
