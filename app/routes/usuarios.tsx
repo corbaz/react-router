@@ -78,7 +78,10 @@ export default function Usuarios() {
                             </thead>
                             <tbody className="bg-white divide-y divide-gray-200">
                                 {usuarios.map((usuario) => (
-                                    <tr key={usuario.id} className="hover:bg-gray-50">
+                                    <tr
+                                        key={usuario.id}
+                                        className="hover:bg-gray-50"
+                                    >
                                         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                             {usuario.id}
                                         </td>
@@ -93,7 +96,8 @@ export default function Usuarios() {
                                                 className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
                                                     usuario.rol === "Admin"
                                                         ? "bg-red-100 text-red-800"
-                                                        : usuario.rol === "Editor"
+                                                        : usuario.rol ===
+                                                            "Editor"
                                                           ? "bg-yellow-100 text-yellow-800"
                                                           : "bg-green-100 text-green-800"
                                                 }`}

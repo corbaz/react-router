@@ -43,13 +43,20 @@ export function useNavigation() {
      * Obtiene la ruta anterior y siguiente basado en el orden
      */
     const currentIndex = routeOrder.indexOf(currentPath);
-    const previousRoute = currentIndex > 0 ? routeOrder[currentIndex - 1] : null;
-    const nextRoute = currentIndex < routeOrder.length - 1 ? routeOrder[currentIndex + 1] : null;
+    const previousRoute =
+        currentIndex > 0 ? routeOrder[currentIndex - 1] : null;
+    const nextRoute =
+        currentIndex < routeOrder.length - 1
+            ? routeOrder[currentIndex + 1]
+            : null;
 
     /**
      * Calcula la dirección de navegación entre dos rutas
      */
-    const getNavigationDirection = (fromPath: string, toPath: string): "forward" | "backward" => {
+    const getNavigationDirection = (
+        fromPath: string,
+        toPath: string,
+    ): "forward" | "backward" => {
         const fromIndex = routeOrder.indexOf(fromPath);
         const toIndex = routeOrder.indexOf(toPath);
         return toIndex > fromIndex ? "forward" : "backward";

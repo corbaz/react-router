@@ -10,4 +10,6 @@ export interface TransitionContextType {
     routeOrder: string[];
 }
 
-export const TransitionContext = createContext<TransitionContextType | undefined>(undefined);
+export const TransitionContext = createContext<
+    TransitionContextType | undefined
+>(undefined);

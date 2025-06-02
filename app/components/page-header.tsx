@@ -25,7 +25,9 @@ export function PageHeader({
     return (
         <div className={`text-center mb-8 ${className}`}>
             <h1 className="text-4xl font-bold text-gray-800 mb-4">{title}</h1>
-            {description && <p className="text-xl text-gray-600">{description}</p>}
+            {description && (
+                <p className="text-xl text-gray-600">{description}</p>
+            )}
         </div>
     );
 }

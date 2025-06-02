@@ -28,7 +28,9 @@ function LayoutContent({ children }: { children: React.ReactNode }) {
             >
                 <div className="container mx-auto px-4 text-center">
                     <p>{SYSTEM_CONFIG.footer.copyrightText}</p>{" "}
-                    <p className="text-sm mt-2 opacity-80">{SYSTEM_CONFIG.footer.secondaryText}</p>
+                    <p className="text-sm mt-2 opacity-80">
+                        {SYSTEM_CONFIG.footer.secondaryText}
+                    </p>
                 </div>
             </footer>
         </>
@@ -40,7 +42,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <html lang="es">
             <head>
                 <meta charSet="utf-8" />
-                <meta name="viewport" content="width=device-width, initial-scale=1" />
+                <meta
+                    name="viewport"
+                    content="width=device-width, initial-scale=1"
+                />
                 <Meta />
                 <Links />
             </head>

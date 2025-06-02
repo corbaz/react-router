@@ -50,7 +50,9 @@ export function SpeedSelector() {
             <select
                 id="speed-selector"
                 value={speed}
-                onChange={(e) => setSpeed(e.target.value as keyof typeof transitionSpeeds)}
+                onChange={(e) =>
+                    setSpeed(e.target.value as keyof typeof transitionSpeeds)
+                }
                 className="text-sm bg-pink-700 text-white border border-pink-500 rounded px-2 py-1 hover:bg-pink-800 focus:outline-none focus:ring-2 focus:ring-pink-300"
                 title={`Duración actual: ${transitionSpeeds[speed]}ms`}
             >

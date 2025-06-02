@@ -25,31 +25,37 @@ export default function About() {
                             Nuestra Historia
                         </h2>
                         <p className="text-gray-700 leading-relaxed mb-4">
-                            Fundada en 2025, nuestra empresa nació con la visión de crear soluciones
-                            web modernas y eficientes que ayuden a las empresas a crecer en el mundo
-                            digital.
+                            Fundada en 2025, nuestra empresa nació con la visión
+                            de crear soluciones web modernas y eficientes que
+                            ayuden a las empresas a crecer en el mundo digital.
                         </p>
                         <p className="text-gray-700 leading-relaxed">
-                            Utilizamos las últimas tecnologías para ofrecer experiencias de usuario
-                            excepcionales y sistemas robustos que impulsan el éxito de nuestros
-                            clientes.
+                            Utilizamos las últimas tecnologías para ofrecer
+                            experiencias de usuario excepcionales y sistemas
+                            robustos que impulsan el éxito de nuestros clientes.
                         </p>
                     </div>
 
                     <div className="grid md:grid-cols-2 gap-6">
                         <div className="bg-white p-6 rounded-lg shadow-md">
-                            <h3 className="text-xl font-semibold mb-3 text-green-600">Misión</h3>
+                            <h3 className="text-xl font-semibold mb-3 text-green-600">
+                                Misión
+                            </h3>
                             <p className="text-gray-700">
-                                Desarrollar aplicaciones web innovadoras que transformen la manera
-                                en que las empresas interactúan con sus usuarios.
+                                Desarrollar aplicaciones web innovadoras que
+                                transformen la manera en que las empresas
+                                interactúan con sus usuarios.
                             </p>
                         </div>
 
                         <div className="bg-white p-6 rounded-lg shadow-md">
-                            <h3 className="text-xl font-semibold mb-3 text-purple-600">Visión</h3>
+                            <h3 className="text-xl font-semibold mb-3 text-purple-600">
+                                Visión
+                            </h3>
                             <p className="text-gray-700">
-                                Ser líderes en el desarrollo de soluciones web que impulsen la
-                                transformación digital de las empresas.
+                                Ser líderes en el desarrollo de soluciones web
+                                que impulsen la transformación digital de las
+                                empresas.
                             </p>{" "}
                         </div>
                     </div>

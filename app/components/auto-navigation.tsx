@@ -16,7 +16,9 @@ export function AutoNavigation() {
                     to={item.path}
                     className={({ isActive }) =>
                         `text-white hover:text-pink-300 transition-colors font-medium ${
-                            isActive ? "text-pink-300 border-b-2 border-pink-300" : ""
+                            isActive
+                                ? "text-pink-300 border-b-2 border-pink-300"
+                                : ""
                         }`
                     }
                 >

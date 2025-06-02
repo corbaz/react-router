@@ -104,30 +104,46 @@ export default function Contacto() {
                         <div className="space-y-4">
                             <div className="flex items-start space-x-3">
                                 <div className="bg-green-100 p-2 rounded-lg">
-                                    <span className="text-green-600 text-xl">📧</span>
+                                    <span className="text-green-600 text-xl">
+                                        📧
+                                    </span>
                                 </div>
                                 <div>
-                                    <h3 className="font-medium text-gray-800">Email</h3>
-                                    <p className="text-gray-600">contacto@misitio.com</p>
+                                    <h3 className="font-medium text-gray-800">
+                                        Email
+                                    </h3>
+                                    <p className="text-gray-600">
+                                        contacto@misitio.com
+                                    </p>
                                 </div>
                             </div>
 
                             <div className="flex items-start space-x-3">
                                 <div className="bg-green-100 p-2 rounded-lg">
-                                    <span className="text-green-600 text-xl">📱</span>
+                                    <span className="text-green-600 text-xl">
+                                        📱
+                                    </span>
                                 </div>
                                 <div>
-                                    <h3 className="font-medium text-gray-800">Teléfono</h3>
-                                    <p className="text-gray-600">+1 (555) 123-4567</p>
+                                    <h3 className="font-medium text-gray-800">
+                                        Teléfono
+                                    </h3>
+                                    <p className="text-gray-600">
+                                        +1 (555) 123-4567
+                                    </p>
                                 </div>
                             </div>
 
                             <div className="flex items-start space-x-3">
                                 <div className="bg-green-100 p-2 rounded-lg">
-                                    <span className="text-green-600 text-xl">📍</span>
+                                    <span className="text-green-600 text-xl">
+                                        📍
+                                    </span>
                                 </div>
                                 <div>
-                                    <h3 className="font-medium text-gray-800">Dirección</h3>
+                                    <h3 className="font-medium text-gray-800">
+                                        Dirección
+                                    </h3>
                                     <p className="text-gray-600">
                                         123 Web Street
                                         <br />
@@ -138,10 +154,14 @@ export default function Contacto() {
 
                             <div className="flex items-start space-x-3">
                                 <div className="bg-green-100 p-2 rounded-lg">
-                                    <span className="text-green-600 text-xl">⏰</span>
+                                    <span className="text-green-600 text-xl">
+                                        ⏰
+                                    </span>
                                 </div>
                                 <div>
-                                    <h3 className="font-medium text-gray-800">Horarios</h3>
+                                    <h3 className="font-medium text-gray-800">
+                                        Horarios
+                                    </h3>
                                     <p className="text-gray-600">
                                         Lun - Vie: 9:00 AM - 6:00 PM
                                         <br />

@@ -8,21 +8,29 @@ interface MobileSlideTransitionProps {
     children: React.ReactNode;
 }
 
-export function MobileSlideTransition({ children }: MobileSlideTransitionProps) {
+export function MobileSlideTransition({
+    children,
+}: MobileSlideTransitionProps) {
     const location = useLocation();
     const { speed } = useTransition();
     const { getNavigationDirection } = useNavigation();
     const transitionSpeeds = getTransitionSpeeds();
     const [isTransitioning, setIsTransitioning] = useState(false);
-    const [direction, setDirection] = useState<"forward" | "backward">("forward");
+    const [direction, setDirection] = useState<"forward" | "backward">(
+        "forward",
+    );
 
     // Estados para contenido de páginas
-    const [_previousPageContent, setPreviousPageContent] = useState<React.ReactNode>(null);
-    const [currentPageContent, setCurrentPageContent] = useState<React.ReactNode>(children);
+    const [_previousPageContent, setPreviousPageContent] =
+        useState<React.ReactNode>(null);
+    const [currentPageContent, setCurrentPageContent] =
+        useState<React.ReactNode>(children);
 
     const previousLocation = useRef(location);
     const isFirstRender = useRef(true);
-    const transitionTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+    const transitionTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(
+        null,
+    );
 
     const duration = transitionSpeeds[speed];
 
@@ -36,7 +44,10 @@ export function MobileSlideTransition({ children }: MobileSlideTransitionProps) 
 
     // Manejo de transiciones
     useEffect(() => {
-        if (location.pathname !== previousLocation.current.pathname && !isFirstRender.current) {
+        if (
+            location.pathname !== previousLocation.current.pathname &&
+            !isFirstRender.current
+        ) {
             // 1. Capturar contenido actual
             setPreviousPageContent(currentPageContent); // 2. Determinar dirección usando el hook mejorado
             const newDirection = getNavigationDirection(
@@ -81,7 +92,10 @@ export function MobileSlideTransition({ children }: MobileSlideTransitionProps) 
     }, []);
 
     return (
-        <div className="relative w-full overflow-hidden" style={{ minHeight: "500px" }}>
+        <div
+            className="relative w-full overflow-hidden"
+            style={{ minHeight: "500px" }}
+        >
             {" "}
             {/* Página anterior - SE DESVANECE (opacity) 
             {isTransitioning && previousPageContent && (

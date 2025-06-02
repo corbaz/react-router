@@ -1,54 +1,81 @@
 {
-    "name": "react-router",
-    "private": true,
-    "type": "module",
-    "scripts": {
-        "ncu": "bun x npm-check-updates -u && bun install",
-        "clear-cache": "bun upgrade && bun pm cache clean && rimraf node_modules bun.lockb && bun install",
-        "clear-build": "rimraf ./build",
-        "lint": "eslint . --ext .ts,.tsx",
-        "lint:fix": "eslint . --ext .ts,.tsx --fix",
-        "typecheck": "react-router typegen && tsc",
-        "validate": "bun run typecheck && bun run lint && bun run format:check",
-        "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,css,md}\"",
-        "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,css,md}\"",
-        "build": "react-router build",
-        "dev": "react-router dev --host",
-        "start": "react-router-serve ./build/server/index.js"
-    },
-    "dependencies": {
-        "@react-router/node": "^7.6.1",
-        "@react-router/serve": "^7.6.1",
-        "isbot": "^5.1.28",
-        "react": "^19.1.0",
-        "react-dom": "^19.1.0",
-        "react-router": "^7.6.1"
-    },
-    "devDependencies": {
-        "@react-router/dev": "^7.6.1",
-        "@tailwindcss/vite": "^4.1.8",
-        "@types/node": "^22.15.29",
-        "@types/react": "^19.1.6",
-        "@types/react-dom": "^19.1.5",
-        "@typescript-eslint/eslint-plugin": "^8.33.0",
-        "@typescript-eslint/parser": "^8.33.0",
-        "eslint": "^9.28.0",
-        "eslint-config-prettier": "^10.1.5",
-        "eslint-plugin-jsx-a11y": "^6.10.2",
-        "eslint-plugin-prettier": "^5.4.1",
-        "eslint-plugin-react": "^7.37.5",
-        "eslint-plugin-react-hooks": "^5.2.0",
-        "eslint-plugin-react-refresh": "^0.4.20",
-        "husky": "^9.1.7",
-        "lint-staged": "^16.1.0",
-        "prettier": "^3.5.3",
-        "tailwindcss": "^4.1.8",
-        "typescript": "^5.8.3",
-        "vite": "^6.3.5",
-        "vite-tsconfig-paths": "^5.1.4"
-    },
-    "trustedDependencies": ["@tailwindcss/oxide"],
-    "lint-staged": {
-        "**/*.{ts,tsx,js,jsx,json,css,md}": "prettier --write"
-    }
+  "name": "react-router",
+  "private": false,
+  "version": "1.0.0",
+  "description": "Demo profesional de React Router 7, optimizado para deploy en GitHub Pages.",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/corbaz/react-router.git"
+  },
+  "homepage": "https://corbaz.github.io/react-router/",
+  "bugs": {
+    "url": "https://github.com/corbaz/react-router/issues"
+  },
+  "keywords": [
+    "react",
+    "react-router",
+    "router",
+    "routing",
+    "vite",
+    "tailwindcss",
+    "typescript",
+    "github-pages"
+  ],
+  "author": "Julio Cesar Corbaz <julio.corbaz@gmail.com> (https://github.com/corbaz)",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "ncu": "bun x npm-check-updates -u && bun install",
+    "clear-cache": "bun upgrade && bun pm cache clean && rimraf node_modules bun.lockb && bun install",
+    "clear-build": "rimraf ./build",
+    "lint": "eslint . --ext .ts,.tsx",
+    "lint:fix": "eslint . --ext .ts,.tsx --fix",
+    "typecheck": "react-router typegen && tsc",
+    "validate": "bun run typecheck && bun run lint && bun run format:check",
+    "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,css,md}\"",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,css,md}\"",
+    "build": "react-router build",
+    "dev": "react-router dev --host",
+    "start": "react-router-serve ./build/server/index.js"
+  },
+  "dependencies": {
+    "@react-router/node": "^7.6.1",
+    "@react-router/serve": "^7.6.1",
+    "isbot": "^5.1.28",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-router": "^7.6.1"
+  },
+  "devDependencies": {
+    "@react-router/dev": "^7.6.1",
+    "@tailwindcss/vite": "^4.1.8",
+    "@types/node": "^22.15.29",
+    "@types/react": "^19.1.6",
+    "@types/react-dom": "^19.1.5",
+    "@typescript-eslint/eslint-plugin": "^8.33.0",
+    "@typescript-eslint/parser": "^8.33.0",
+    "eslint": "^9.28.0",
+    "eslint-config-prettier": "^10.1.5",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
+    "eslint-plugin-prettier": "^5.4.1",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.20",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.1.0",
+    "prettier": "^3.5.3",
+    "tailwindcss": "^4.1.8",
+    "typescript": "^5.8.3",
+    "vite": "^6.3.5",
+    "vite-tsconfig-paths": "^5.1.4"
+  },
+  "trustedDependencies": [
+    "@tailwindcss/oxide"
+  ],
+  "lint-staged": {
+    "**/*.{ts,tsx,js,jsx,json,css,md}": "prettier --write"
+  }
 }

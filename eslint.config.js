@@ -72,7 +72,10 @@ export default [
             "react-hooks/exhaustive-deps": "warn",
 
             // React Refresh
-            "react-refresh/only-export-components": ["warn", { allowConstantExport: true }],
+            "react-refresh/only-export-components": [
+                "warn",
+                { allowConstantExport: true },
+            ],
 
             // Accesibilidad
             "jsx-a11y/alt-text": "error",
@@ -124,7 +127,12 @@ export default [
     },
 
     {
-        files: ["*.config.ts", "*.config.js", "vite.config.ts", "react-router.config.ts"],
+        files: [
+            "*.config.ts",
+            "*.config.js",
+            "vite.config.ts",
+            "react-router.config.ts",
+        ],
         rules: {
             "no-console": "off",
             "@typescript-eslint/no-explicit-any": "off",
