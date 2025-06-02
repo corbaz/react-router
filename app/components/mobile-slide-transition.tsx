@@ -20,11 +20,8 @@ export function MobileSlideTransition({
         "forward",
     );
 
-    // Estados para contenido de páginas
     const [_previousPageContent, setPreviousPageContent] =
         useState<React.ReactNode>(null);
-    const [currentPageContent, setCurrentPageContent] =
-        useState<React.ReactNode>(children);
 
     const previousLocation = useRef(location);
     const isFirstRender = useRef(true);
@@ -34,32 +31,29 @@ export function MobileSlideTransition({
 
     const duration = transitionSpeeds[speed];
 
-    // Inicialización
+    // Manejo de transiciones - solo después del primer render
     useEffect(() => {
+        // Marcar como no primer render después del primer ciclo
         if (isFirstRender.current) {
-            setCurrentPageContent(children);
             isFirstRender.current = false;
+            previousLocation.current = location;
+            return;
         }
-    }, [children]);
 
-    // Manejo de transiciones
-    useEffect(() => {
-        if (
-            location.pathname !== previousLocation.current.pathname &&
-            !isFirstRender.current
-        ) {
-            // 1. Capturar contenido actual
-            setPreviousPageContent(currentPageContent); // 2. Determinar dirección usando el hook mejorado
+        // Solo hacer transiciones si cambió la ruta
+        if (location.pathname !== previousLocation.current.pathname) {
+            // 1. Capturar contenido anterior
+            setPreviousPageContent(children);
+
+            // 2. Determinar dirección
             const newDirection = getNavigationDirection(
                 previousLocation.current.pathname,
                 location.pathname,
             );
             setDirection(newDirection);
 
-            // 3. Actualizar contenido y empezar transición
-            setCurrentPageContent(children);
+            // 3. Empezar transición
             setIsTransitioning(true);
-
             previousLocation.current = location;
 
             // 4. Limpiar timeout anterior
@@ -73,14 +67,7 @@ export function MobileSlideTransition({
                 setPreviousPageContent(null);
             }, duration);
         }
-    }, [
-        location.pathname,
-        duration,
-        children,
-        currentPageContent,
-        getNavigationDirection,
-        location,
-    ]);
+    }, [location, children, duration, getNavigationDirection]);
 
     // Cleanup
     useEffect(() => {
@@ -96,30 +83,27 @@ export function MobileSlideTransition({
             className="relative w-full overflow-hidden"
             style={{ minHeight: "500px" }}
         >
-            {" "}
-            {/* Página anterior - SE DESVANECE (opacity) 
-            {isTransitioning && previousPageContent && (
+            {/* Página anterior - SE DESVANECE (comentado por ahora) */}
+            {/*isTransitioning && previousPageContent && (
                 <div
                     className="absolute inset-0 z-10"
                     style={{
                         transition: `opacity ${duration * 5.5}ms ease-in-out`,
-                        opacity: 60, // Se desvanece
+                        opacity: 60,
                     }}
                 >
                     {previousPageContent}
                 </div>
-            )}*/}
-            {/* Página nueva - ENTRA DESLIZANDO desde el lado correcto */}
+            )*/}
+
+            {/* Página actual - siempre visible */}
             <div
                 className="relative w-full h-full z-20"
                 style={{
                     transition: isTransitioning
                         ? `transform ${duration}ms cubic-bezier(0.25, 0.46, 0.45, 0.94)`
                         : "none",
-                    transform: isTransitioning
-                        ? "translateX(0)" // Termina en el centro
-                        : "translateX(0)", // Posición normal
-                    // Empieza desde el lado correcto cuando hay transición
+                    transform: "translateX(0)",
                     ...(isTransitioning && {
                         animation:
                             direction === "forward"
@@ -128,7 +112,7 @@ export function MobileSlideTransition({
                     }),
                 }}
             >
-                {currentPageContent}
+                {children}
             </div>
         </div>
     );
